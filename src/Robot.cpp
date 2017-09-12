@@ -3,3 +3,11 @@
 //
 
 #include "Robot.h"
+
+void Robot::addArm(Arm arm) {
+    this->arms.push_back(arm);
+}
+
+void Robot::setPosition(Point point) {
+    this->destinationPoint = point;
+}

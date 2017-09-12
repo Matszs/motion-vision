@@ -3,3 +3,8 @@
 //
 
 #include "Arm.h"
+
+Arm::Arm(float length, float angle) {
+    this->length = length;
+    this->angle = angle;
+}

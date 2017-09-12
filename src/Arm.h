@@ -10,6 +10,8 @@ class Arm {
 private:
     float length;
     float angle;
+public:
+    Arm(float length, float angle);
 };
 
 

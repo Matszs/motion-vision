@@ -1,6 +1,14 @@
 #include <iostream>
+#include "Robot.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+    Robot robot = Robot();
+    robot.addArm(Arm(10, 30));
+    robot.addArm(Arm(10, 30));
+    robot.addArm(Arm(10, 30));
+
+
+
     return 0;
 }

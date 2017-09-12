@@ -13,6 +13,7 @@
 class Robot {
 private:
     std::list<Arm> arms;
+    Point destinationPoint;
 public:
     void addArm(Arm arm);
     void setPosition(Point point);
