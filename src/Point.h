@@ -27,38 +27,6 @@ public:
     Point sub(Point b);
     void move(double a, double b);
     void print(ostream &strm);
-
-
-    // Distance to another point.  Pythagorean thm.
-    double dist(Point other) {
-        double xd = xval - other.xval;
-        double yd = yval - other.yval;
-        return sqrt(xd*xd + yd*yd);
-    }
-
-    // Add or subtract two points.
-    Point add(Point b)
-    {
-        return Point(xval + b.xval, yval + b.yval);
-    }
-    Point sub(Point b)
-    {
-        return Point(xval - b.xval, yval - b.yval);
-    }
-
-    // Move the existing point.
-    void move(double a, double b)
-    {
-        xval += a;
-        yval += b;
-    }
-
-    // Print the point on the stream.  The class ostream is a base class
-    // for output streams of various types.
-    void print(ostream &strm)
-    {
-        strm << "(" << xval << "," << yval << ")";
-    }
 };
 
 
