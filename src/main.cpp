@@ -1,14 +1,20 @@
-#include <iostream>
-#include "Robot.h"
-
-int main() {
-
-    Robot robot = Robot();
-    robot.addArm(Arm(10, 30));
-    robot.addArm(Arm(10, 30));
-    robot.addArm(Arm(10, 30));
-
-
-
-    return 0;
-}
+ - #include <iostream>
+ - #include "Robot.h"
+ - 
+ - int main() {
+ -     // units = centimeters
+ - 
+ -     Robot robot = Robot();
+ -     robot.setThreshold(3);
+ - 
+ -     robot.addArm(Arm(10, 45)); // length - angle
+ -     robot.addArm(Arm(10, 10)); // length - angle
+ - 
+ -     robot.setDestinationPoint(Point(30, 30)); // x-as & y-as
+ - 
+ -     robot.run();
+ - 
+ - 
+ - 
+ -     return 0;
+ - }
