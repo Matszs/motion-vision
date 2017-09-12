@@ -2,8 +2,8 @@
 // Created by Mats Otten on 12/09/2017.
 //
 
-#ifndef TEST_CCD_H
-#define TEST_CCD_H
+#ifndef MOTION_VISION_CCD_H
+#define MOTION_VISION_CCD_H
 
 
 class ccd {
@@ -11,4 +11,4 @@ class ccd {
 };
 
 
-#endif //TEST_CCD_H
+#endif //MOTION_VISION_CCD_H
