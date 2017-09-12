@@ -8,12 +8,14 @@
 
 #include <list>
 #include "Arm.h"
+#include "Point.h"
 
 class Robot {
 private:
     std::list<Arm> arms;
 public:
     void addArm(Arm arm);
+    void setPosition(Point point);
 };
 
 
