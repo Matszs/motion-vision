@@ -7,7 +7,9 @@
 
 
 class Arm {
-
+private:
+    float length;
+    float angle;
 };
 
 

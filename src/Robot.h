@@ -6,8 +6,14 @@
 #define MOTION_VISION_ROBOT_H
 
 
-class Robot {
+#include <list>
+#include "Arm.h"
 
+class Robot {
+private:
+    std::list<Arm> arms;
+public:
+    void addArm(Arm arm);
 };
 
 
