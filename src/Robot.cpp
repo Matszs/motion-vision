@@ -27,11 +27,15 @@ void Robot::run() {
     //while(!this->isNearDestinationPoint()) {
 
         this->arms.reverse();
-        Arm *lastArm;
+        Arm *lastArm = 0;
 
 
         for(Arm& arm : arms) {
-            if(lastArm) {
+            if(lastArm != 0) {
+
+				
+
+				cout << lastArm->getAngle() << "\n";
 
                 //float newAngle = (lastArm->getX() - arm.getX());
 
@@ -52,21 +56,6 @@ void Robot::setThreshold(float value) {
 
 Point Robot::getEndPoint() {
     return Point(arms.end()->getX(), arms.end()->getY());
-
-    /*float angleTotal = 0;
-    float totalX = 0;
-    float totalY = 0;
-
-    for(Arm& arm : arms) {
-        angleTotal += arm.getAngle() * M_PI / 180;
-        float x = arm.getLength() * cosf(angleTotal);
-        float y = arm.getLength() * sinf(angleTotal);
-
-        totalX += y;
-        totalY += x;
-    }
-
-    return Point(totalX, totalY);*/
 }
 
 void Robot::calculatePoints() {
