@@ -1,42 +1,83 @@
 //
 // Created by Mats Otten on 12/09/2017.
+// https://www.mathsisfun.com/data/cartesian-coordinates-interactive.html
 //
 
 #include "Arm.h"
 
-Arm::Arm(float length, float angle) {
-    this->length = length;
-    this->angle = angle;
+void Arm::addSegment(Segment segment) {
+    this->segments.push_back(segment);
+
+    this->calculatePoints();
 }
 
-float Arm::getLength() {
-    return this->length;
+void Arm::setDestinationPoint(Point point) {
+    this->destinationPoint = point;
 }
 
-float Arm::getAngle() {
-    return this->angle;
+bool Arm::isNearDestinationPoint() {
+    Point endPoint = this->getEndPoint();
+    double distanceBetweenPoints = endPoint.dist(this->destinationPoint);
+
+    return (distanceBetweenPoints < this->threshold);
 }
 
-void Arm::setLength(float value) {
-    this->length = value;
+void Arm::run() {
+
+    //while(!this->isNearDestinationPoint()) {
+
+        this->segments.reverse();
+        Segment *lastSegment = 0;
+
+
+        for(Segment& segment : segments) {
+            if(lastSegment != 0) {
+
+				
+
+				cout << lastSegment->getAngle() << "\n";
+
+                //float newAngle = (lastSegment->getX() - segment.getX());
+
+
+
+            }
+
+            lastSegment = &segment;
+        }
+        this->segments.reverse();
+    //}
+
 }
 
-void Arm::setAngle(float value) {
-    this->angle = value;
+void Arm::setThreshold(float value) {
+    this->threshold = value;
 }
 
-float Arm::getX() {
-    return this->x;
+Point Arm::getEndPoint() {
+    return Point(segments.end()->getX(), segments.end()->getY());
 }
 
-float Arm::getY() {
-    return this->y;
-}
+void Arm::calculatePoints() {
 
-void Arm::setX(float value) {
-    this->x = value;
-}
+    float angleTotal = 0;
+    float totalX = 0;
+    float totalY = 0;
 
-void Arm::setY(float value) {
-    this->y = value;
+    for (Segment &segment : segments) {
+        angleTotal += segment.getAngle() * M_PI / 180;
+        float x = segment.getLength() * cosf(angleTotal);
+        float y = segment.getLength() * sinf(angleTotal);
+
+        totalX += y;
+        totalY += x;
+
+        segment.setX(totalX);
+        segment.setY(totalY);
+
+        cout << "(" << totalX << ", " << totalY << ")" << ",";
+    }
+
+    cout << "\n\n";
+
 }

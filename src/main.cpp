@@ -1,18 +1,18 @@
 #include <iostream>
-#include "Robot.h"
+#include "Arm.h"
 
 int main() {
     // units = centimeters
 
-    Robot robot = Robot();
-    robot.setThreshold(3);
+    Arm arm = Arm();
+    arm.setThreshold(3);
 
-    robot.addArm(Arm(10, 45)); // lengthangle
-    robot.addArm(Arm(10, 10)); // lengthangle
+    arm.addSegment(Segment(10, 45)); // lengthangle
+    arm.addSegment(Segment(10, 10)); // lengthangle
 
-    robot.setDestinationPoint(Point(30, 30)); // x-as & y-as
+    arm.setDestinationPoint(Point(30, 30)); // x-as & y-as
 
-    robot.run();
+    arm.run();
 
 
 

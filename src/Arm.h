@@ -6,28 +6,23 @@
 #define MOTION_VISION_ARM_H
 
 
+#include <list>
+#include "Segment.h"
 #include "Point.h"
-#include <math.h>
 
 class Arm {
 private:
-    float length;
-    float angle;
-    float x;
-    float y;
+    std::list<Segment> segments;
+    Point destinationPoint;
+    float threshold;
 public:
-    Arm(float length, float angle);
-    float getLength();
-    float getAngle();
-
-    void setLength(float value);
-    void setAngle(float value);
-
-    float getX();
-    float getY();
-
-    void setX(float value);
-    void setY(float value);
+    void addSegment(Segment segment);
+    void setDestinationPoint(Point point);
+    void setThreshold(float value);
+    Point getEndPoint();
+    void calculatePoints();
+    void run();
+    bool isNearDestinationPoint();
 };
 
 
