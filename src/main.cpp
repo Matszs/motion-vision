@@ -9,8 +9,9 @@ int main() {
 
     arm.addSegment(Segment(10, 45)); // lengthangle
     arm.addSegment(Segment(10, 10)); // lengthangle
+    arm.addSegment(Segment(10, 20)); // lengthangle
 
-    arm.setDestinationPoint(Point(30, 30)); // x-as & y-as
+    arm.setDestinationPoint(Point(20, 20)); // x-as & y-as
 
     arm.run();
 

@@ -24,30 +24,27 @@ bool Arm::isNearDestinationPoint() {
 
 void Arm::run() {
 
-    //while(!this->isNearDestinationPoint()) {
+    int loopCounter = 100;
 
-        this->segments.reverse();
+    while(!this->isNearDestinationPoint() && loopCounter) {
+
+        this->segments.reverse(); // reverse list
         Segment *lastSegment = 0;
 
-
         for(Segment& segment : segments) {
-            if(lastSegment != 0) {
+            if(lastSegment == 0)
+                lastSegment = &segment;
 
-				
-
-				cout << lastSegment->getAngle() << "\n";
-
-                //float newAngle = (lastSegment->getX() - segment.getX());
+            segment.rotate(this->destinationPoint, lastSegment);
+            this->calculatePoints();
 
 
-
-            }
-
-            lastSegment = &segment;
+            //cout << segment.getAngle() << "\n";
         }
-        this->segments.reverse();
-    //}
+        this->segments.reverse(); // reverse list back
 
+        loopCounter--;
+    }
 }
 
 void Arm::setThreshold(float value) {
@@ -64,6 +61,8 @@ void Arm::calculatePoints() {
     float totalX = 0;
     float totalY = 0;
 
+    Segment *lastSegment = 0;
+
     for (Segment &segment : segments) {
         angleTotal += segment.getAngle() * M_PI / 180;
         float x = segment.getLength() * cosf(angleTotal);
@@ -74,8 +73,11 @@ void Arm::calculatePoints() {
 
         segment.setX(totalX);
         segment.setY(totalY);
+        segment.setMountingSegment(lastSegment);
 
         cout << "(" << totalX << ", " << totalY << ")" << ",";
+
+        lastSegment = &segment;
     }
 
     cout << "\n\n";

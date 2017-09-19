@@ -5,17 +5,23 @@
 
 #include "Point.h"
 
-Point::Point(double x, double y) {
+Point::Point(double x, double y, double z) {
     xval = x;
     yval = y;
+    zval = z;
 }
 
+
 double Point::x() {
-    return xval;
+    return this->xval;
 }
 
 double Point::y() {
-    return yval;
+    return this->yval;
+}
+
+double Point::z() {
+    return this->zval;
 }
 
 double Point::dist(Point other) {
@@ -25,11 +31,11 @@ double Point::dist(Point other) {
 }
 
 Point Point::add(Point b) {
-    return Point(xval + b.xval, yval + b.yval);
+    return Point(this->xval + b.xval, this->yval + b.yval);
 }
 
 Point Point::sub(Point b) {
-    return Point(xval - b.xval, yval - b.yval);
+    return Point(this->xval - b.xval, this->yval - b.yval);
 }
 
 void Point::move(double a, double b)  {
@@ -39,4 +45,25 @@ void Point::move(double a, double b)  {
 
 void Point::print(ostream &strm) {
     strm << "(" << xval << "," << yval << ")";
+}
+
+double Point::dotProduct(Point other) {
+	return this->x() * other.x() + this->y() * other.y() + this->z() * other.z();
+}
+
+double Point::angle(double dotProduct, Point other) {
+
+	double vDot = dotProduct / (this->length() * other.length());
+	if(vDot < -1.0) vDot = -1.0;
+	if(vDot > 1.0) vDot = 1.0;
+
+	return acos(vDot);
+}
+
+double Point::length() {
+	return sqrt(sqrt(x()) + sqrt(y()) + sqrt(z()));
+}
+
+Point Point::cross(Point other) {
+	return Point(this->y() * other.z() - this->z() * other.y(), this->z() * other.x() - this->x() * other.z(), this->x() * other.y() - this->y() * other.x());
 }

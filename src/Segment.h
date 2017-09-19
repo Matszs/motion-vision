@@ -13,21 +13,30 @@ class Segment {
 private:
     float length;
     float angle;
-    float x;
-    float y;
+    float x = 0.0;
+    float y = 0.0;
+    float z = 0.0;
+	Segment* mountingSegment = 0;
 public:
     Segment(float length, float angle);
     float getLength();
     float getAngle();
+	Segment* getMountingSegment();
 
     void setLength(float value);
     void setAngle(float value);
+	void setMountingSegment(Segment* mountingSegment);
 
     float getX();
     float getY();
+    float getZ();
+	Point getMountingPoint();
 
     void setX(float value);
     void setY(float value);
+    void setZ(float value);
+
+	void rotate(Point destinationEndPoint, Segment* lastSegment);
 };
 
 
