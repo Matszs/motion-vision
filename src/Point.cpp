@@ -54,8 +54,16 @@ double Point::dotProduct(Point other) {
 double Point::angle(double dotProduct, Point other) {
 
 	double vDot = dotProduct / (this->length() * other.length());
+	cout << "vDot " << vDot << endl;
 	if(vDot < -1.0) vDot = -1.0;
 	if(vDot > 1.0) vDot = 1.0;
+
+	cout << "dotProduct " << dotProduct << endl;
+	cout << "this->length() " << this->length() << endl;
+	cout << "other.length() " << other.length() << endl;
+	cout << "vDot " << vDot << endl;
+
+	cout << " ±±±±±±±±±±± " << endl;
 
 	return acos(vDot);
 }

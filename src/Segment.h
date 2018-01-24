@@ -11,6 +11,7 @@
 
 class Segment {
 private:
+	string label;
     float length;
     float angle;
     float x = 0.0;
@@ -18,7 +19,7 @@ private:
     float z = 0.0;
 	Segment* mountingSegment = 0;
 public:
-    Segment(float length, float angle);
+    Segment(string label, float length, float angle);
     float getLength();
     float getAngle();
 	Segment* getMountingSegment();
@@ -27,11 +28,13 @@ public:
     void setAngle(float value);
 	void setMountingSegment(Segment* mountingSegment);
 
+	string getLabel();
     float getX();
     float getY();
     float getZ();
 	Point getMountingPoint();
 
+	Point getEndPoint();
     void setX(float value);
     void setY(float value);
     void setZ(float value);

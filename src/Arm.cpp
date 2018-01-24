@@ -6,7 +6,12 @@
 #include "Arm.h"
 
 void Arm::addSegment(Segment segment) {
+	Segment *lastSegment = nullptr;
+	if(this->segments.size() > 0)
+		lastSegment = &segments.back();
+
     this->segments.push_back(segment);
+	(&segments.back())->setMountingSegment(lastSegment);
 
     this->calculatePoints();
 }
@@ -24,24 +29,21 @@ bool Arm::isNearDestinationPoint() {
 
 void Arm::run() {
 
-    int loopCounter = 100;
+    int loopCounter = 2;
 
     while(!this->isNearDestinationPoint() && loopCounter) {
 
-        this->segments.reverse(); // reverse list
-        Segment *lastSegment = 0;
+		cout << this->isNearDestinationPoint() << " - " << loopCounter << endl;
 
-        for(Segment& segment : segments) {
-            if(lastSegment == 0)
-                lastSegment = &segment;
+        Segment *lastSegment = &this->segments.back();
 
-            segment.rotate(this->destinationPoint, lastSegment);
-            this->calculatePoints();
+		// reversed iterator
+		for (std::list<Segment>::reverse_iterator segment(this->segments.rbegin()), iter_end(this->segments.rend()); segment != iter_end; ++segment) {
+			cout << segment->getLabel() << endl;
 
-
-            //cout << segment.getAngle() << "\n";
-        }
-        this->segments.reverse(); // reverse list back
+			segment->rotate(this->destinationPoint, lastSegment);
+			this->calculatePoints();
+		}
 
         loopCounter--;
     }
@@ -61,8 +63,6 @@ void Arm::calculatePoints() {
     float totalX = 0;
     float totalY = 0;
 
-    Segment *lastSegment = 0;
-
     for (Segment &segment : segments) {
         angleTotal += segment.getAngle() * M_PI / 180;
         float x = segment.getLength() * cosf(angleTotal);
@@ -73,12 +73,10 @@ void Arm::calculatePoints() {
 
         segment.setX(totalX);
         segment.setY(totalY);
-        segment.setMountingSegment(lastSegment);
 
         cout << "(" << totalX << ", " << totalY << ")" << ",";
 
-        lastSegment = &segment;
-    }
+	}
 
     cout << "\n\n";
 

@@ -4,7 +4,8 @@
 
 #include "Segment.h"
 
-Segment::Segment(float length, float angle) {
+Segment::Segment(string label, float length, float angle) {
+	this->label = label;
     this->length = length;
     this->angle = angle;
 }
@@ -23,6 +24,10 @@ void Segment::setLength(float value) {
 
 void Segment::setAngle(float value) {
     this->angle = value;
+}
+
+string Segment::getLabel() {
+	return label;
 }
 
 float Segment::getX() {
@@ -44,15 +49,36 @@ void Segment::setY(float value) {
 // Reference material; https://github.com/hharrison/vecmath/blob/master/src/javax/vecmath/Vector3d.java
 void Segment::rotate(Point destinationEndPoint, Segment *lastSegment) {
 
-	Point lastSegmentMountPoint = lastSegment->getMountingPoint();
+	Point target = Point(
+			destinationEndPoint.x() - this->getMountingPoint().x(),
+			destinationEndPoint.y() - this->getMountingPoint().y(),
+			destinationEndPoint.z() - this->getMountingPoint().z()
+	);
 
-	Point target = Point(destinationEndPoint.x() - lastSegmentMountPoint.x(), destinationEndPoint.y() - lastSegmentMountPoint.y(), destinationEndPoint.z() - lastSegmentMountPoint.z());
-	Point current = Point(lastSegment->x - lastSegmentMountPoint.x(), lastSegment->y - lastSegmentMountPoint.y(), lastSegment->z - lastSegmentMountPoint.z());
+	Point current = Point(
+			lastSegment->getX() - this->getMountingPoint().x(),
+			lastSegment->getY() - this->getMountingPoint().y(),
+			lastSegment->getZ() - this->getMountingPoint().z()
+	);
+
 	Point cross;
 
 	double dotProduct = current.dotProduct(target);
 	double difference = current.angle(dotProduct, target); // Angle between two, normalize, dotProduct, 'inversen cosinus'
 	double differenceDegrees = difference * M_PI / 180;
+
+	cout << "target: ";
+	target.print(cout);
+	cout << endl;
+
+	cout << "current: ";
+	current.print(cout);
+	cout << endl;
+
+
+	cout << "dotProduct: " << dotProduct << endl;
+	cout << "difference: " << difference << endl;
+	cout << "differenceDegrees: " << differenceDegrees << endl;
 
 
 	cross = target.cross(current);
@@ -73,9 +99,13 @@ void Segment::setMountingSegment(Segment *mountingSegment) {
 }
 
 Point Segment::getMountingPoint() {
-	if(this->mountingSegment != 0)
+	if(this->mountingSegment != nullptr)
 		return Point(this->mountingSegment->getX(), this->mountingSegment->getY(), this->mountingSegment->getZ());
 	return Point(); // default Point on 0, 0, 0
+}
+
+Point Segment::getEndPoint() {
+	return Point(this->getX(), this->getY(), this->getZ());
 }
 
 float Segment::getZ() {
