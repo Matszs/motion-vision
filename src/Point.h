@@ -29,9 +29,11 @@ public:
     void move(double a, double b);
     void print(ostream &strm);
     double dotProduct(Point other);
-	double angle(double dotProduct, Point other);
+	double angle(Point other);
 	Point cross(Point other);
 	double length();
+	void normalize(Point point);
+	void normalize();
 };
 
 

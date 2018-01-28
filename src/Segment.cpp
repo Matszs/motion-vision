@@ -61,27 +61,16 @@ void Segment::rotate(Point destinationEndPoint, Segment *lastSegment) {
 			lastSegment->getZ() - this->getMountingPoint().z()
 	);
 
-	Point cross;
+	target.normalize();
+	current.normalize();
 
-	double dotProduct = current.dotProduct(target);
-	double difference = current.angle(dotProduct, target); // Angle between two, normalize, dotProduct, 'inversen cosinus'
+	double difference = current.angle(target); // Angle between two, dotProduct, 'inversen cosinus'
 	double differenceDegrees = difference * M_PI / 180;
 
-	cout << "target: ";
-	target.print(cout);
-	cout << endl;
+	Point cross = target.cross(current);
 
-	cout << "current: ";
-	current.print(cout);
-	cout << endl;
-
-
-	cout << "dotProduct: " << dotProduct << endl;
-	cout << "difference: " << difference << endl;
-	cout << "differenceDegrees: " << differenceDegrees << endl;
-
-
-	cross = target.cross(current);
+	if(differenceDegrees > 6) // simple example damping
+		differenceDegrees = 6;
 
 	if(cross.z() > 0) {
 		this->setAngle(this->getAngle() - differenceDegrees);
@@ -90,11 +79,11 @@ void Segment::rotate(Point destinationEndPoint, Segment *lastSegment) {
 	}
 }
 
-Segment *Segment::getMountingSegment() {
+Segment * Segment::getMountingSegment() {
 	return this->mountingSegment;
 }
 
-void Segment::setMountingSegment(Segment *mountingSegment) {
+void Segment::setMountingSegment(Segment * mountingSegment) {
 	this->mountingSegment = mountingSegment;
 }
 

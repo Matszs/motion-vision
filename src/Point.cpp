@@ -51,19 +51,11 @@ double Point::dotProduct(Point other) {
 	return this->x() * other.x() + this->y() * other.y() + this->z() * other.z();
 }
 
-double Point::angle(double dotProduct, Point other) {
+double Point::angle(Point other) {
 
-	double vDot = dotProduct / (this->length() * other.length());
-	cout << "vDot " << vDot << endl;
+	double vDot = this->dotProduct(other) / (this->length() * other.length());
 	if(vDot < -1.0) vDot = -1.0;
 	if(vDot > 1.0) vDot = 1.0;
-
-	cout << "dotProduct " << dotProduct << endl;
-	cout << "this->length() " << this->length() << endl;
-	cout << "other.length() " << other.length() << endl;
-	cout << "vDot " << vDot << endl;
-
-	cout << " ±±±±±±±±±±± " << endl;
 
 	return acos(vDot);
 }
@@ -74,4 +66,20 @@ double Point::length() {
 
 Point Point::cross(Point other) {
 	return Point(this->y() * other.z() - this->z() * other.y(), this->z() * other.x() - this->x() * other.z(), this->x() * other.y() - this->y() * other.x());
+}
+
+void Point::normalize(Point point) {
+	double normalization = 1.0 / sqrt(point.x() * point.x() + point.y() * point.y() + point.z() * point.z());
+
+	xval *= normalization;
+	yval *= normalization;
+	zval *= normalization;
+}
+
+void Point::normalize() {
+	double normalization = 1.0 / sqrt(this->x() * this->x() + this->y() * this->y() + this->z() * this->z());
+
+	xval *= normalization;
+	yval *= normalization;
+	zval *= normalization;
 }
